@@ -6,6 +6,9 @@ import express from 'express';
 import { NotFoundError, errorHandler, currentUser } from '@bdntickets/common';
 
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
+import { indexRouter } from './routes';
+import { updateRouter } from './routes/update';
 
 
 const app = express();
@@ -19,6 +22,9 @@ app.use(cookieSession({
 app.use(currentUser);
 
 app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(indexRouter);
+app.use(updateRouter);
 
 app.all('*', async () => {
     throw new NotFoundError();
